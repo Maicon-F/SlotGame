@@ -5,6 +5,7 @@ import java.util.Random;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
+    int payout = 0;
     int[] simbols = {0, 1, 2, 3};
     int[][] resultGrid = new int[3][5];
     int[][] payouts = new int[1][1];
@@ -35,7 +36,7 @@ public class Main {
             }
             //TODO: print grid
         }
-
+        payoutManager();
         return resultGrid;
     }
 
@@ -44,64 +45,60 @@ public class Main {
         return random.nextInt(4);
     }
 
-    private int[][] paylineCalculator(){
-        //per line
-        // per column
-        // per diagonal right
-        // per diagonal left
-
-        return null; //TODO
-
-    }
 
     //2 for loops. mxn complexity to compute horizonal paylines plus the diagonal complexity
-    private int[][] payoutManager(int line){
-        int[] diagPayLine = {-1,-1};
-        int[] diagInvPayLine = {-1,-1};
-        for(int row = 0; row < 3; row++){
-            int[] payLine = {-1,-1};
-            //check if there is a payouts, and saves the highest one found for every payLine
-            for(int col = 0; col < 4; col++){
-                int currentSimbol = resultGrid[row][col];
-                updatePayLine(currentSimbol, payLine);
-            }
-        }
+    private void payoutManager(){
+        checkPayline(firstLineIndexes);
+        checkPayline(secondLineIndexes);
+        checkPayline(thirdLineIndexes);
 
-        updateDiagonalPayLine(diagIndexes,diagPayLine);
-        updateDiagonalPayLine(diagIndexes,diagInvPayLine);
-
-        return null; //TODO
+        checkPayline(diagIndexes);
+        checkPayline(diagInvIndexes);
     }
 
 
-    private void updateDiagonalPayLine(int[][]indexes, int[]diagonal) {
+    private void checkPayline(int[][]indexes ) {
+        //payline may contain up 2 elements. the first index represents the element 0 1 2 3
+        // the second index represents the amount of times it repeats itself.
+        int[]line = new int[2];
         for (int[] index : indexes) {
             int row = index[0];
             int col = index[1];
             int currentSimbol = resultGrid[row][col];
-            updatePayLine(currentSimbol, diagonal);
-        }
-    }
+            updateLineData(currentSimbol, line);
 
-    private void updatePayLine(int currentSimbol, int[]payLine){
-        int repetitions = payLine[1];
-        if(currentSimbol == payLine[0]){
-            payLine[1] = ++repetitions;
-            if(repetitions >= 3 ){
-                //TODO save payload
-                //TODO save as []
+            //updates when finds one
+            if(line[1] >= 3 ){
+                payout = payout + getLinePayout(line);
             }
-        }else {
-            payLine[0] = currentSimbol;
-            payLine[1] = ++repetitions;
         }
     }
 
-    private int payload(Object[][] input ){
-        // get the highest payload over the rows
+    private void updateLineData(int currentSimbol, int[]line){
+        int repetitions = line[1];
+        if(currentSimbol == line[0]){
+            line[1] = ++repetitions;
+        }else {
+            line[0] = currentSimbol;
+            line[1] = ++repetitions;
+        }
+    }
 
-        // get the the second payload but only if it doesnt contain an already used reference
-        return 0;
+
+    private int getLinePayout(int[]payline )  {
+        int[][] rules = {
+                // Symbol 0 payouts: 3oak, 4oak, 5oak
+                {5, 10, 20},
+                // Symbol 1 payouts: 3oak, 4oak, 5oak
+                {10, 20, 40},
+                // Symbol 2 payouts: 3oak, 4oak, 5oak
+                {15, 30, 60},
+                // Symbol 3 payouts: 3oak, 4oak, 5oak
+                {20, 50, 100}
+        };
+
+        Object[][] payload = new Object[5][2];
+        return rules[payline[0]][payline[1]];
     }
 
 
