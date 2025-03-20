@@ -9,8 +9,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static core.Game.printReport;
+
 public class CapacityTest {
     private final long spins = 10000;
+    private static int counter=0;
 
 
     @Test
@@ -24,6 +27,8 @@ public class CapacityTest {
 
         for (int i = 0; i < spins; i++) {
             Game game = new Game();
+            //counter++;
+            //System.out.println("Instances: " + counter);
             futures.add(executor.submit(() -> {
                 int result = game.run();
                 totalSum.addAndGet(result);
@@ -38,7 +43,12 @@ public class CapacityTest {
 
         executor.shutdown();
 
-        System.out.println("Total sum of results: " + totalSum.get());
+        int resInt = totalSum.get();
+        double resDouble = resInt;
+        System.out.println("RTP: " + (resDouble/(spins*10))*100);
+
+        printReport();
+
     }
 
 

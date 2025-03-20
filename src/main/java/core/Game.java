@@ -4,14 +4,12 @@ import java.util.Random;
 
 public class Game {
 
+    private static int[][] statistics = new int[5][3];
     public Game(){
-        counter++;
-        System.out.println("Instances: " + counter);
     }
 
     private int payout = 0;
     private int[][] resultGrid = new int[3][5];
-    private static int counter = 0;
 
     static int[][] firstLineIndexes = { {0, 0},{0, 1},{0, 2},{0, 3}, {0, 4}};
     static int[][] secondLineIndexes = {{1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4}};
@@ -47,15 +45,15 @@ public class Game {
 
     //2 for loops. mxn complexity to compute horizonal paylines plus the diagonal complexity
     public void payoutManager(){
-        checkPayline(firstLineIndexes);
-        checkPayline(secondLineIndexes);
-        checkPayline(thirdLineIndexes);
+        checkPayline(firstLineIndexes, 0);
+        checkPayline(secondLineIndexes, 1);
+        checkPayline(thirdLineIndexes, 2);
 
-        checkPayline(diagIndexes);
-        checkPayline(diagInvIndexes);
+        checkPayline(diagIndexes, 3);
+        checkPayline(diagInvIndexes, 4);
     }
 
-    private void checkPayline(int[][]indexes ) {
+    private void checkPayline(int[][]indexes, int ref ) {
         //payline may contain up 2 elements. the first index represents the element, possibly 0 1 2 3
         // the second index represents the amount of times it matches
 
@@ -72,6 +70,12 @@ public class Game {
                 linePayout = getLinePayout(line);
             }
         }
+
+        //feeds the statistic report
+        if(line[1] >=3){
+            ++statistics[ref][line[1]-3];
+        }
+
         payout = payout + linePayout;
     }
 
@@ -114,11 +118,37 @@ public class Game {
         }
     }
 
+    // Print the statistics summary
+    private static void printReport(int[][] grid) {
+        int wins = 0;
+        System.out.println("Summary:");
+        System.out.println("Payline  | 3oak | 4oak | 5oak");
+        System.out.println("------------------------------");
+        for (int row = 0; row < grid.length; row++) {
+            System.out.print("   " + row + "     | ");
+            for (int col = 0; col < grid[row].length; col++) {
+                wins = grid[row][col] + wins;
+                System.out.print(grid[row][col]);
+
+                if (col != grid[row].length - 1) {
+                    System.out.print(" | ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("\nTotal wins: " + wins);
+    }
+
+
     public void setGrid(int[][] grid) {
         this.resultGrid = grid;
     }
 
     public int getPayload() {
         return payout;}
+
+    public static void printReport(){
+        printReport(statistics);
+    }
 
 }
