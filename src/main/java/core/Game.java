@@ -31,8 +31,11 @@ public class Game {
             }
         }
         //enable to visualize the resulting grid
-        displayGrid(resultGrid);
+        //displayGrid(resultGrid);
         payoutManager();
+
+        //System.out.println(payout);
+
         return payout;
     }
 
