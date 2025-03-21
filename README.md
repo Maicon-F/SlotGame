@@ -3,12 +3,12 @@
 This is a slot game development developed with openjdk23. Therefore, you must have JavaRE23 in order to run it. And at least JDK23 in order to compile. Bellow you can find the commands needed to do so:
 
 <b>Without Maven:</b>
-javac MyProgram.java to compile.
-java MyProgram to run.
+javac SlotGame.java to compile.
+java SlotGame.jar to run.
 
 <b>With Maven:</b>
 mvn clean compile to compile.
-mvn exec:java -Dexec.mainClass="com.example.MyProgram" to run.
+mvn exec:java -Dexec.mainClass="SlotGame.jar" to run.
 
 <hr/>
 
