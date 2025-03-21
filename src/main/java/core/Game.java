@@ -8,6 +8,7 @@ public class Game {
     public Game(){
     }
 
+    boolean loss = true;
     private int payout = 0;
     private int[][] resultGrid = new int[3][5];
 
@@ -29,10 +30,17 @@ public class Game {
             }
         }
         //enable to visualize the resulting grid
-        //displayGrid(resultGrid);
+        displayGrid(resultGrid);
         payoutManager();
 
-        //System.out.println(payout);
+        if(loss){
+            payout = payout - 10;
+            System.out.println("You did not win and lost 10 coins." +
+                    "\nYou current balance " + payout+ " coins!" +
+                    "\nTry again!");
+        }else{
+            System.out.println("Congratulations! You won! \nYou current balance " + payout+ " coins!");
+        }
 
         return payout;
     }
@@ -74,6 +82,7 @@ public class Game {
         //feeds the statistic report
         if(line[1] >=3){
             ++statistics[ref][line[1]-3];
+            loss=false; //inneficient logic
         }
 
         payout = payout + linePayout;
