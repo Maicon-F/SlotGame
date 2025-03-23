@@ -21,16 +21,20 @@ is achieved when at least 3 consecutive matching symbols are found in a payline.
 1. In order to minimaze mathematics, I will consider every row element independent, which is not true for the diagonals. 
 
 2. Java random is a true random generator, without any bias.
+
    
 
 ## Theoretical calculation
-## The theoretic win probability is given by:
+
+
+## The theoretical win probability is given by:
 
 Probability to lose 5 times in a row =  Ploss;
 
 Pwin = 1- Ploss;
 
-## The theoretic win probability for one line:
+
+## The theoretical win probability for one line:
 
 Consider the following 5 spots:  __ __ __ __ __ 
 
@@ -44,14 +48,16 @@ That simplify a lot, so we have as a result: 4 x 4 x 4 = 64 win situations.
 
 Pwin_1Line = 64/1024 = 0.0625
 
-## The theoretic losing probability : 
+
+
+## The theoretical loss probability : 
 
 Pline_loss= 1-0.625 = 0.9375
 
 Ploss = (Pline_loss)^5 = 0.724
 
 
-## Theoretical overall win chance: 
+## Theoretical overall win probability: 
 
 ✅<b>Pwin%<b> = (1 - 0.724)*100 =  <b>27.50%<b>
  
