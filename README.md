@@ -13,14 +13,14 @@ mvn exec:java -Dexec.mainClass="SlotGame.jar" to run.
 <hr/>
 
 ## Introduction and theoretical approach
-The idea is to build a 5x3 array with 04 different symbols, in our case 0 1 2 3 4, holding the same probability of ocupying the spots. Every row is a payline, same for diagonal and reverse diagonal. A win 
+The idea is to build a 3x5 array containing up 04 different symbols, in our case 0 1 2 3 4, holding the same probability of ocupying the spots. Every row is a payline, same for diagonal and reverse diagonal. A win 
 is achieved when at least 3 consecutive matching symbols are found in a payline. 
 
 
 ### Assumption
-1. In order to minimaxe mathematics, I will consider every row element independent, which is not true for the diagonals. 
+1. In order to minimaze mathematics, I will consider every row element independent, which is not true for the diagonals. 
 
-2. Java random is a true random generator, without any odds.
+2. Java random is a true random generator, without any bias.
    
 
 ## Theoretical calculation
@@ -44,13 +44,14 @@ That simplify a lot, so we have as a result: 4 x 4 x 4 = 64 win situations.
 
 Pwin_1Line = 64/1024 = 0.0625
 
-## The theoretic losing probability for one line: 
+## The theoretic losing probability : 
 
 Pline_loss= 1-0.625 = 0.9375
 
 Ploss = (Pline_loss)^5 = 0.724
 
-## Theoretical win chances: 
+
+## Theoretical overall win chance: 
 
 ✅<b>Pwin%<b> = (1 - 0.724)*100 =  <b>27.50%<b>
  
