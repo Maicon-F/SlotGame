@@ -1,6 +1,6 @@
 # Slot Game
 <h2>How to use it</h2>
-This is a slot game development developed with openjdk23. Therefore, you must have JavaRE23 in order to run it. And at least JDK23 in order to compile. Bellow you can find the commands needed to do so:
+This is a slot game developed with openjdk23. Therefore, you must have JavaRE23 in order to run it. And at least JDK23 in order to compile. Bellow you can find the commands needed to do so:
 
 <b>Without Maven:</b>
 javac SlotGame.java to compile.
